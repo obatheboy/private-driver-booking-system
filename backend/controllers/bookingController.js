@@ -5,18 +5,18 @@ const db = require("../db");
 ================================ */
 const mapBooking = (row) => ({
   id: row.id,
-  fullName: row.full_name,
+  fullName: row.fullName,
   phone: row.phone,
-  pickupCounty: row.pickup_county,
-  pickupArea: row.pickup_area,
-  pickupLandmark: row.pickup_landmark,
-  destinationCounty: row.destination_county,
-  destinationArea: row.destination_area,
+  pickupCounty: row.pickupCounty,
+  pickupArea: row.pickupArea,
+  pickupLandmark: row.pickupLandmark,
+  destinationCounty: row.destinationCounty,
+  destinationArea: row.destinationArea,
   passengers: row.passengers,
   date: row.date,
-  pickupTime: row.pickup_time,
+  pickupTime: row.pickupTime,
   status: row.status,
-  createdAt: row.created_at,
+  createdAt: row.createdAt,
 });
 
 /* ===============================
@@ -53,16 +53,16 @@ const createBooking = async (req, res) => {
     const result = await db.query(
       `
       INSERT INTO bookings (
-        full_name,
+        "fullName",
         phone,
-        pickup_county,
-        pickup_area,
-        pickup_landmark,
-        destination_county,
-        destination_area,
+        "pickupCounty",
+        "pickupArea",
+        "pickupLandmark",
+        "destinationCounty",
+        "destinationArea",
         passengers,
         date,
-        pickup_time,
+        "pickupTime",
         status
       )
       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,'PENDING')
@@ -93,7 +93,7 @@ const createBooking = async (req, res) => {
       booking,
     });
   } catch (err) {
-    console.error(err);
+    console.error("CREATE BOOKING ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -104,12 +104,12 @@ const createBooking = async (req, res) => {
 const getBookings = async (req, res) => {
   try {
     const result = await db.query(
-      "SELECT * FROM bookings ORDER BY created_at DESC"
+      `SELECT * FROM bookings ORDER BY "createdAt" DESC`
     );
 
     res.json(result.rows.map(mapBooking));
   } catch (err) {
-    console.error(err);
+    console.error("GET BOOKINGS ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -126,13 +126,13 @@ const getBookingsByPhone = async (req, res) => {
 
   try {
     const result = await db.query(
-      "SELECT * FROM bookings WHERE phone = $1 ORDER BY created_at DESC",
+      `SELECT * FROM bookings WHERE phone = $1 ORDER BY "createdAt" DESC`,
       [phone]
     );
 
     res.json(result.rows.map(mapBooking));
   } catch (err) {
-    console.error(err);
+    console.error("GET BOOKINGS BY PHONE ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -175,7 +175,7 @@ const updateBookingStatus = async (req, res) => {
       booking,
     });
   } catch (err) {
-    console.error(err);
+    console.error("UPDATE STATUS ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
