@@ -114,7 +114,7 @@ export default function Banner() {
                 className="btn whatsapp"
                 onClick={() =>
                   window.open(
-                    "https://wa.me/254794101450?text=Hello%20Hessy%20Urban%20Taxi,%20I%20would%20like%20to%20book%20a%20ride.",
+                    "https://wa.me/254713130931?text=Hello%20Hessy%20Urban%20Taxi,%20I%20would%20like%20to%20book%20a%20ride.",
                     "_blank"
                   )
                 }
@@ -124,7 +124,7 @@ export default function Banner() {
 
               <button
                 className="btn call"
-                onClick={() => (window.location.href = "tel:+254794101450")}
+                onClick={() => (window.location.href = "tel:+254713130931")}
               >
                 CALL
               </button>
