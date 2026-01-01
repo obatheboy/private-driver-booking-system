@@ -214,16 +214,19 @@
     height: 55px;
   }
 }
-
 /* =========================
-   TYPEWRITER DROP EFFECT
+   TYPEWRITER DROP EFFECT (COMPACT)
 ========================= */
 
 .advantages-list li {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-14px);          /* ⬇ less vertical movement */
   animation: dropType 0.6s ease-out forwards;
   position: relative;
+
+  font-size: 1.05rem;                    /* ⬇ smaller text */
+  line-height: 1.35;                     /* ⬇ tighter spacing */
+  margin-bottom: 8px;                    /* ⬇ reduce list height */
 }
 
 /* =========================
@@ -237,8 +240,6 @@
 
 /* RESET + LOOP every 10s */
 .advantages-list li {
-  opacity: 0;
-  transform: translateY(-20px);
   animation-name: dropType;
   animation-duration: 0.6s;
   animation-fill-mode: forwards;
@@ -283,12 +284,13 @@
 .advantages-list li:nth-child(9) { color: #e879f9; }
 
 /* =========================
-   ✨ TYPEWRITER CURSOR
+   ✨ TYPEWRITER CURSOR (SMALLER)
 ========================= */
 
 .advantages-list li::after {
   content: "|";
-  margin-left: 6px;
+  margin-left: 4px;                      /* ⬇ tighter */
+  font-size: 0.9em;                      /* ⬇ smaller cursor */
   opacity: 1;
   animation: blinkCursor 1s infinite;
   color: #facc15;
@@ -300,17 +302,17 @@
 }
 
 /* =========================
-   DROP + FADE EFFECT
+   DROP + FADE EFFECT (SOFTER)
 ========================= */
 
 @keyframes dropType {
   0% {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-18px);
   }
   20% {
     opacity: 1;
-    transform: translateY(5px);
+    transform: translateY(4px);
   }
   80% {
     opacity: 1;
@@ -322,13 +324,15 @@
 }
 
 /* =========================
-   📱 MOBILE — SMOOTHER & CALMER
+   📱 MOBILE — EXTRA COMPACT
 ========================= */
 
 @media (max-width: 768px) {
   .advantages-list li {
+    font-size: 0.95rem;                  /* ⬇ smaller on phone */
+    line-height: 1.3;
+    margin-bottom: 6px;
     animation-duration: 0.9s;
-    font-size: 1rem;
   }
 
   .advantages-list li::after {
@@ -336,18 +340,17 @@
   }
 }
 
-
 /* =========================
-   ADVANTAGES TITLE
+   ADVANTAGES TITLE (SLIGHTLY SMALLER)
 ========================= */
 
 .advantages-title {
-  font-size: 1.6rem;
+  font-size: 1.45rem;                    /* ⬇ reduced */
   font-weight: 800;
-  margin-bottom: 18px;
+  margin-bottom: 14px;                   /* ⬇ tighter */
   color: #facc15;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   animation: titleDrop 1s ease-out forwards;
 }
 
@@ -359,7 +362,7 @@
 @media (max-width: 768px) {
   .advantages-title {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 

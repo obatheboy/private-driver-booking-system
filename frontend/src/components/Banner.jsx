@@ -1,3 +1,6 @@
+
+
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/banner.css";
@@ -29,14 +32,12 @@ const captions = [
   }
 ];
 
+/* 🔥 ALL BANNERS — FULL SCREEN */
 const images = [
   "https://images.pexels.com/photos/1213294/pexels-photo-1213294.jpeg",
   "https://images.pexels.com/photos/7144185/pexels-photo-7144185.jpeg",
   "https://images.pexels.com/photos/977213/pexels-photo-977213.jpeg",
-  "https://images.pexels.com/photos/593172/pexels-photo-593172.jpeg"
-];
-
-const miniImages = [
+  "https://images.pexels.com/photos/593172/pexels-photo-593172.jpeg",
   "/mini-banners/mini1.jpeg",
   "/mini-banners/mini2.jpeg",
   "/mini-banners/mini3.jpeg",
@@ -45,44 +46,32 @@ const miniImages = [
 
 export default function Banner() {
   const [index, setIndex] = useState(0);
-  const [miniIndex, setMiniIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % captions.length);
+      setIndex((prev) => (prev + 1) % images.length);
     }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setMiniIndex((prev) => (prev + 1) % miniImages.length);
-    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <div className="banner">
       <img
-        src={`${images[index % images.length]}?auto=compress&cs=tinysrgb&w=1600`}
+        src={`${images[index]}?auto=compress&cs=tinysrgb&w=1600`}
         className="banner-img"
         alt="Private driver"
       />
 
       <div className="banner-overlay">
-
-        {/* 🔥 BIG BRAND TITLE */}
         <h1 className="brand-title animate-title">
           HESSY <span>URBAN</span> TAXI
         </h1>
 
         <div className="banner-content">
-
           {/* LEFT ADVANTAGES */}
           <div className="banner-left animate-list">
-
-            {/* ⭐ NEW TITLE */}
             <h3 className="advantages-title">
               Why Choose <span>Hessy Urban Taxi?</span>
             </h3>
@@ -100,10 +89,10 @@ export default function Banner() {
             </ul>
           </div>
 
-          {/* RIGHT ROTATING TEXT */}
+          {/* RIGHT TEXT + CTA */}
           <div className="banner-right">
-            <h2>{captions[index].title}</h2>
-            <p>{captions[index].text}</p>
+            <h2>{captions[index % captions.length].title}</h2>
+            <p>{captions[index % captions.length].text}</p>
 
             <div className="hero-buttons">
               <button className="btn primary" onClick={() => navigate("/book")}>
@@ -130,18 +119,6 @@ export default function Banner() {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* MINI BANNERS */}
-        <div className="mini-banner-row">
-          {miniImages.map((img, i) => (
-            <div
-              key={i}
-              className={`mini-card ${i === miniIndex ? "active" : ""}`}
-            >
-              <img src={img} alt={`Local service ${i + 1}`} />
-            </div>
-          ))}
         </div>
       </div>
     </div>
