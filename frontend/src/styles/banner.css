@@ -170,13 +170,20 @@
 
 
 
-.mini-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.mini-card {
+  width: 160px;
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0.55;
+  transform: scale(0.92);
+  transition: all 0.35s ease;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  background-color: #000;
 
-  /* 🔧 FIX FACE VISIBILITY */
-  object-position: center top;
+  /* 🔑 FACE FIX */
+  background-size: cover;
+  background-position: center top;
 }
 
 
