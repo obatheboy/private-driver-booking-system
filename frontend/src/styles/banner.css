@@ -234,59 +234,24 @@
   }
 }
 /* =========================
-   TYPEWRITER DROP EFFECT (COMPACT)
-========================= */
-
-.advantages-list li {
-  opacity: 0;
-  transform: translateY(-14px);          /* ⬇ less vertical movement */
-  animation: dropType 0.6s ease-out forwards;
-  position: relative;
-
-  font-size: 1.05rem;                    /* ⬇ smaller text */
-  line-height: 1.35;                     /* ⬇ tighter spacing */
-  margin-bottom: 8px;                    /* ⬇ reduce list height */
-}
-
-/* =========================
-   LOOPING TYPEWRITER SYSTEM
+   ADVANTAGES LIST — STATIC
 ========================= */
 
 .advantages-list {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
-/* RESET + LOOP every 10s */
 .advantages-list li {
-  animation-name: dropType;
-  animation-duration: 0.6s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-out;
-  animation-iteration-count: infinite;
-  animation-delay: var(--delay);
-  animation-direction: normal;
+  opacity: 1;                 /* always visible */
+  transform: none;            /* no movement */
+  animation: none;            /* 🚫 no animation */
+  position: relative;
+
+  font-size: 1.05rem;
+  line-height: 1.35;
+  margin-bottom: 8px;
 }
-
-/* 🔁 TOTAL LOOP = 10s */
-.advantages-list li {
-  animation-play-state: running;
-  animation-delay: calc(var(--delay) + (10s * var(--loop)));
-}
-
-/* =========================
-   STAGGERED DELAYS
-========================= */
-
-.advantages-list li:nth-child(1) { --delay: 0.3s; --loop: 0; }
-.advantages-list li:nth-child(2) { --delay: 0.6s; --loop: 0; }
-.advantages-list li:nth-child(3) { --delay: 0.9s; --loop: 0; }
-.advantages-list li:nth-child(4) { --delay: 1.2s; --loop: 0; }
-.advantages-list li:nth-child(5) { --delay: 1.5s; --loop: 0; }
-.advantages-list li:nth-child(6) { --delay: 1.8s; --loop: 0; }
-.advantages-list li:nth-child(7) { --delay: 2.1s; --loop: 0; }
-.advantages-list li:nth-child(8) { --delay: 2.4s; --loop: 0; }
-.advantages-list li:nth-child(9) { --delay: 2.7s; --loop: 0; }
 
 /* =========================
    🎨 DIFFERENT COLORS
@@ -303,89 +268,45 @@
 .advantages-list li:nth-child(9) { color: #e879f9; }
 
 /* =========================
-   ✨ TYPEWRITER CURSOR (SMALLER)
+   🚫 NO CURSOR / NO BLINK
 ========================= */
 
 .advantages-list li::after {
-  content: "|";
-  margin-left: 4px;                      /* ⬇ tighter */
-  font-size: 0.9em;                      /* ⬇ smaller cursor */
-  opacity: 1;
-  animation: blinkCursor 1s infinite;
-  color: #facc15;
-}
-
-@keyframes blinkCursor {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  content: none;
 }
 
 /* =========================
-   DROP + FADE EFFECT (SOFTER)
-========================= */
-
-@keyframes dropType {
-  0% {
-    opacity: 0;
-    transform: translateY(-18px);
-  }
-  20% {
-    opacity: 1;
-    transform: translateY(4px);
-  }
-  80% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* =========================
-   📱 MOBILE — EXTRA COMPACT
+   📱 MOBILE
 ========================= */
 
 @media (max-width: 768px) {
   .advantages-list li {
-    font-size: 0.95rem;                  /* ⬇ smaller on phone */
+    font-size: 0.95rem;
     line-height: 1.3;
     margin-bottom: 6px;
-    animation-duration: 0.9s;
-  }
-
-  .advantages-list li::after {
-    animation-duration: 1.3s;
   }
 }
 
 /* =========================
-   ADVANTAGES TITLE (SLIGHTLY SMALLER)
+   ADVANTAGES TITLE
 ========================= */
 
 .advantages-title {
-  font-size: 1.45rem;                    /* ⬇ reduced */
+  font-size: 1.45rem;
   font-weight: 800;
-  margin-bottom: 14px;                   /* ⬇ tighter */
+  margin-bottom: 14px;
   color: #facc15;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  animation: titleDrop 1s ease-out forwards;
 }
 
 .advantages-title span {
   color: #ffffff;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
   .advantages-title {
     text-align: center;
     font-size: 1.2rem;
   }
 }
-
-
-
-
-
