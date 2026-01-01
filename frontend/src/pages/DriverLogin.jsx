@@ -4,7 +4,7 @@ import { setToken, getToken } from "../auth/auth";
 import "./driverLogin.css";
 
 function DriverLogin() {
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ function DriverLogin() {
   }, [navigate]);
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      alert("Email and password required");
+    if (!phone || !password) {
+      alert("Phone number and password required");
       return;
     }
 
@@ -31,7 +31,7 @@ function DriverLogin() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ phone, password }),
         }
       );
 
@@ -63,10 +63,10 @@ function DriverLogin() {
         <h2>🚗 Driver Login</h2>
 
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="tel"
+          placeholder="Phone number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
         />
 
         <input
