@@ -1,0 +1,254 @@
+/* =========================
+   PAGE WRAPPER
+========================= */
+.booking-page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at top, rgba(250, 204, 21, 0.12), transparent 45%),
+    linear-gradient(180deg, #0b0f14, #0f172a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 14px;
+  color: #a3e635;
+}
+
+/* =========================
+   CARD
+========================= */
+.booking-card {
+  width: 100%;
+  max-width: 560px;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 28px 22px 32px;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.75),
+    inset 0 0 0 1px rgba(250, 204, 21, 0.12);
+  animation: fadeUp 0.5s ease;
+}
+
+/* =========================
+   HEADERS
+========================= */
+.booking-card h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: #facc15;
+  letter-spacing: 0.4px;
+}
+
+.booking-card h3 {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: #84cc16;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+.booking-card section {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* =========================
+   INPUTS & SELECTS
+========================= */
+.booking-card input,
+.booking-card select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(163, 230, 53, 0.25);
+  background: rgba(2, 6, 23, 0.95);
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+/* Placeholder */
+.booking-card input::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* Focus */
+.booking-card input:focus,
+.booking-card select:focus {
+  border-color: #facc15;
+  background: rgba(2, 6, 23, 1);
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+}
+
+/* Disabled */
+.booking-card select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* =========================
+   TIME ROW
+========================= */
+.time-row {
+  display: flex;
+  gap: 8px;
+}
+
+.time-row select {
+  flex: 1;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.booking-card button {
+  margin-top: 16px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg, #facc15, #fb8500);
+  color: #020617;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.booking-card button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(250, 204, 21, 0.45);
+}
+
+.booking-card button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Disabled (VISIBLE & CLEAR) */
+.booking-card button:disabled {
+  background: linear-gradient(135deg, #4b5563, #374151);
+  color: #e5e7eb;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+@media (min-width: 768px) {
+  .booking-page {
+    padding: 40px 20px;
+  }
+
+  .booking-card {
+    max-width: 600px;
+    padding: 32px 28px 36px;
+  }
+
+  .booking-card h2 {
+    font-size: 2.1rem;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+@media (min-width: 1200px) {
+  .booking-card {
+    max-width: 660px;
+  }
+}
+
+
+
+/* =========================
+   TRIP HISTORY
+========================= */
+
+.trip-history-box {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #13cf0d;
+}
+
+.trip-history-box h3 {
+  margin-bottom: 8px;
+}
+
+.trip-history-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.trip-history-box button {
+  width: 100%;
+  padding: 10px;
+  background: #1976d2;
+  color: rgb(211, 139, 5);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.trip-history-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.trip-card {
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.trip-card .status {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.status.completed {
+  color: #2e7d32;
+}
+
+.status.pending {
+  color: #f9a825;
+}
+
+.status.rejected {
+  color: #c62828;
+}
+

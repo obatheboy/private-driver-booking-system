@@ -1,0 +1,163 @@
+/* ===============================
+   LANDING PAGE
+================================ */
+.landing-page {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===============================
+   HERO WRAPPER
+================================ */
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ===============================
+   OVERLAY CONTENT (MAIN HERO)
+================================ */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.15)
+  );
+}
+
+/* ===============================
+   HERO CENTER BLOCK
+================================ */
+.hero-center {
+  max-width: 760px;
+  transform: translateY(-40px); /* cinematic lift */
+}
+
+/* ===============================
+   TEXT
+================================ */
+.hero-center h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.hero-center p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 26px;
+  color: #f1f1f1;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* PRIMARY */
+.btn.primary {
+  background: #facc15;
+  color: #000;
+}
+
+/* WHATSAPP */
+.btn.whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+/* CALL */
+.btn.call {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ===============================
+   MINI BANNERS (LOCKED BOTTOM)
+================================ */
+.mini-preview {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 7;
+}
+
+/* ===============================
+   TABLET & DESKTOP
+================================ */
+@media (min-width: 768px) {
+  .hero-center {
+    transform: translateY(-60px);
+  }
+
+  .hero-center h1 {
+    font-size: 3rem;
+  }
+
+  .hero-center p {
+    font-size: 1.15rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 16px 30px;
+  }
+}
+
+/* ===============================
+   SMALL PHONES
+================================ */
+@media (max-width: 480px) {
+  .hero-center {
+    transform: translateY(-20px);
+  }
+
+  .hero-center h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-center p {
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons {
+    gap: 10px;
+  }
+}

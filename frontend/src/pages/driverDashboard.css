@@ -1,0 +1,263 @@
+/* ===============================
+   DRIVER DASHBOARD
+================================ */
+
+.driver-dashboard {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f4f6f8; /* 👈 soft dashboard background */
+  min-height: 100vh;
+}
+
+/* HEADER */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+
+.dashboard-header h2 {
+  font-weight: 800;          /* extra bold */
+  letter-spacing: 0.5px;
+   background: #ee0b07;
+
+}
+
+
+.logout-btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+  background: #c62828;
+}
+
+/* NOTIFICATION */
+.dashboard-notification {
+  background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
+  color: #0d47a1;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+}
+
+/* TABS */
+.dashboard-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.dashboard-tabs button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #ffffff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dashboard-tabs button:hover {
+  background: #f1f5f9;
+}
+
+.dashboard-tabs button.active {
+  background: #1976d2;
+  color: #fff;
+  border-color: #1976d2;
+}
+
+/* EMPTY STATE */
+.no-bookings {
+  text-align: center;
+  color: #777;
+  margin-top: 30px;
+}
+
+/* BOOKINGS LIST */
+.bookings-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* ===============================
+   CARD — IMPROVED BACKGROUND
+================================ */
+
+.booking-card {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f9fafb 100%
+  ); /* 👈 premium soft gradient */
+
+  border-radius: 14px;
+  padding: 16px 16px 14px;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* STATUS BADGE */
+.status-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* STATUS COLORS */
+.status-badge.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.accepted {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.completed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-badge.rejected {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* TEXT — DETAILS AREA */
+.booking-card p {
+  margin: 6px 0;
+  font-size: 0.92rem;
+  color: #333;
+  line-height: 1.45;
+}
+
+.booking-card p strong {
+  color: #111;
+}
+
+/* ACTION BUTTONS */
+.booking-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* BUTTONS */
+.booking-actions button {
+  flex: 1;
+  padding: 9px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.booking-actions button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* BUTTON COLORS */
+.accept-btn {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #fff;
+}
+
+.reject-btn {
+  background: linear-gradient(135deg, #c62828, #8e0000);
+  color: #fff;
+}
+
+.complete-btn {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: #fff;
+}
+
+/* LOADING */
+.dashboard-loading {
+  text-align: center;
+  padding: 40px;
+  color: #555;
+}
+
+/* ===============================
+   DESKTOP ENHANCEMENTS
+================================ */
+@media (min-width: 768px) {
+  .bookings-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+
+
+.quick-contact {
+  display: flex;
+  gap: 10px;
+  margin: 8px 0 10px;
+}
+
+.quick-contact a {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.whatsapp-btn {
+  background: #25d366;
+  color: #fff;
+}
+
+.call-btn {
+  background: #1976d2;
+  color: #fff;
+}
+
+.booking-card p {
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.status-badge {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
