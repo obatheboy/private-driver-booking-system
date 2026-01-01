@@ -1,26 +1,19 @@
 const db = require("../db");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs"); // ✅ FIXED
 const jwt = require("jsonwebtoken");
 
 /* =========================
-   REGISTER DRIVER (ADMIN ONLY)
+   REGISTER DRIVER
 ========================= */
 const registerDriver = async (req, res) => {
   try {
-    // 🔐 ADMIN CHECK
-    const adminKey = req.headers["x-admin-key"];
-
-    if (adminKey !== process.env.ADMIN_CREATE_KEY) {
-      return res.status(403).json({ message: "Unauthorized" });
-    }
-
     const { fullName, phone, password } = req.body;
 
     if (!fullName || !phone || !password) {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    // 🔎 Check if driver already exists
+    // Check if driver exists
     const existing = await db.query(
       "SELECT id FROM drivers WHERE phone = $1",
       [phone]
@@ -30,10 +23,10 @@ const registerDriver = async (req, res) => {
       return res.status(409).json({ message: "Driver already registered" });
     }
 
-    // 🔐 Hash password
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 💾 Save driver
+    // Save driver
     const result = await db.query(
       `INSERT INTO drivers (full_name, phone, password)
        VALUES ($1, $2, $3)
@@ -42,7 +35,7 @@ const registerDriver = async (req, res) => {
     );
 
     res.status(201).json({
-      message: "Driver created successfully",
+      message: "Driver registered successfully",
       driver: result.rows[0],
     });
   } catch (err) {
@@ -89,6 +82,7 @@ const loginDriver = async (req, res) => {
       },
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
