@@ -13,10 +13,14 @@
   height: 100%;
   object-fit: cover;
 
-  opacity: 1;                     /* ✅ ALWAYS VISIBLE */
+  /* 🔑 ADD THIS LINE */
+  object-position: center top;
+
+  opacity: 1;
   transition: opacity 0.4s ease-in-out;
-  z-index: 0;                     /* ✅ BELOW OVERLAY */
+  z-index: 0;
 }
+
 
 /* DARK OVERLAY */
 .banner::before {
