@@ -3,16 +3,14 @@ const http = require("http");
 const cors = require("cors");
 require("dotenv").config();
 
-
 const bookingRoutes = require("./routes/booking.routes");
-
 const driverRoutes = require("./routes/driver.routes");
 
 const app = express();
 
 /* ---------------- MIDDLEWARE ---------------- */
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // ✅ REQUIRED for POST JSON bodies
 
 /* ---------------- HTTP SERVER ---------------- */
 const server = http.createServer(app);
@@ -46,7 +44,7 @@ app.get("/", (req, res) => {
 
 // API routes
 app.use("/api/bookings", bookingRoutes);
-app.use("/api/driver", driverRoutes);
+app.use("/api/drivers", driverRoutes); // ✅ FIXED (plural)
 
 /* ---------------- START SERVER ---------------- */
 
