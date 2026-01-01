@@ -367,16 +367,19 @@ function Booking() {
           </select>
         </section>
 
-        {/* TRIP */}
+             {/* TRIP */}
         <section>
           <h3>Trip Details</h3>
 
+          <label>Number of Passengers</label>
           <select name="passengers" value={form.passengers} onChange={handleChange}>
-            {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+            {[1, 2, 3, 4, 5].map(n => <option key={n}>{n}</option>)}
           </select>
 
+          <label>Pickup Date</label>
           <input type="date" name="date" value={form.date} onChange={handleChange} />
 
+          <label>Pickup Time</label>
           <div className="time-row">
             <select name="hour" value={form.hour} onChange={handleChange}>
               {Array.from({ length: 12 }, (_, i) => i + 1).map(h => <option key={h}>{h}</option>)}
