@@ -40,7 +40,7 @@ const images = [
   "https://images.pexels.com/photos/593172/pexels-photo-593172.jpeg",
   "/mini-banners/mini1.jpeg",
   "/mini-banners/mini2.jpeg",
-  "/mini-banners/mini3.jpeg",
+
   "/mini-banners/mini4.jpeg"
 ];
 

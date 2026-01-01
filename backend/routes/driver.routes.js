@@ -1,9 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const { loginDriver } = require("../controllers/driver.controller");
+const {
+  loginDriver,
+  registerDriver
+} = require("../controllers/driver.controller");
 
-// 🔐 DRIVER LOGIN (FAKE AUTH FOR NOW)
+// 🚗 DRIVER REGISTER
+router.post("/register", registerDriver);
+
+// 🔐 DRIVER LOGIN
 router.post("/login", loginDriver);
 
 module.exports = router;
