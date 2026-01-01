@@ -143,14 +143,16 @@
    MINI LOCAL BANNERS
 ========================= */
 .mini-banner-row {
-  margin-top: 48px;              /* ⬆ reduced from 30px */
-  transform: translateY(-90px); /* ⬆ gently move up */
-  
+  margin-top: 48px;
+  transform: translateY(-90px);
   display: flex;
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
+
 .mini-card {
   width: 160px;
   height: 130px;
@@ -165,7 +167,7 @@
 
 .mini-card img {
   width: 100%;
-  height: 100;
+  height: 100%;
   object-fit: cover;
   object-position: center 30%;
 }
@@ -177,50 +179,16 @@
 }
 
 /* =========================
-   ANIMATIONS
-========================= */
-.animate-title {
-  animation: titleDrop 1.3s ease-out forwards;
-}
-
-.animate-list {
-  animation: listFade 1.5s ease-out forwards;
-}
-
-@keyframes titleDrop {
-  from {
-    opacity: 0;
-    transform: translateY(-35px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes listFade {
-  from {
-    opacity: 0;
-    transform: translateX(-45px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* =========================
-   📱 MOBILE FIX (VERY IMPORTANT)
+   📱 MOBILE FIX — NO COLLISION
 ========================= */
 @media (max-width: 768px) {
   .banner {
     min-height: auto;
-    padding-bottom: 30px;
+    padding-bottom: 60px;
   }
 
   .brand-title {
     font-size: 2.4rem;
-    text-align: center;
     margin-bottom: 18px;
   }
 
@@ -230,42 +198,22 @@
     gap: 30px;
   }
 
-  .banner-left {
-    max-width: 100%;
-  }
-
-  .advantages-list {
-    padding: 20px;
-  }
-
-  .advantages-list li {
-    font-size: 1rem;
-  }
-
-  .banner-right h2 {
-    font-size: 1.4rem;
-    text-align: center;
-  }
-
-  .banner-right p {
-    font-size: 0.95rem;
-    text-align: center;
-  }
-
   .hero-buttons {
-    justify-content: center;
+    margin-top: 28px;
+    gap: 16px;
+  }
+
+  /* 🔑 CRITICAL FIX */
+  .mini-banner-row {
+    transform: none;          /* ❌ remove upward pull */
+    margin-top: 36px;         /* ✅ safe spacing */
   }
 
   .mini-card {
     width: 70px;
     height: 55px;
   }
-
-  .mini-banner-row {
-    gap: 10px;
-  }
 }
-
 
 /* =========================
    TYPEWRITER DROP EFFECT
