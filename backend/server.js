@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 
 // API routes
 app.use("/api/bookings", bookingRoutes);
-app.use("/api/drivers", driverRoutes); // ✅ FIXED (plural)
+app.use("/api/driver", driverRoutes); // ✅ FIXED (plural)
 
 /* ---------------- START SERVER ---------------- */
 
