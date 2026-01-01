@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./TripHistory.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function TripHistory() {
   const [phone, setPhone] = useState("");
   const [trips, setTrips] = useState([]);
@@ -21,7 +23,7 @@ function TripHistory() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/bookings/phone/${phone}`
+        `${API_URL}/api/bookings/by-phone/${phone}`
       );
 
       if (!res.ok) {
@@ -29,7 +31,7 @@ function TripHistory() {
       }
 
       const data = await res.json();
-      setTrips(data);
+      setTrips(Array.isArray(data) ? data : []);
     } catch (err) {
       setError("No trip history found for this number");
     } finally {
@@ -49,13 +51,12 @@ function TripHistory() {
           onChange={(e) => setPhone(e.target.value)}
         />
 
-        <button onClick={fetchTrips}>
+        <button onClick={fetchTrips} disabled={loading}>
           {loading ? "Checking..." : "View My Trips"}
         </button>
       </div>
 
       {error && <p className="error-text">{error}</p>}
-
       {loading && <p className="loading-text">Loading trips...</p>}
 
       {!loading && searched && trips.length === 0 && !error && (

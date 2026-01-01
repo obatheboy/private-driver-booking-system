@@ -282,7 +282,10 @@ function Booking() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/bookings", {
+     const res = await fetch(
+  `${import.meta.env.VITE_API_URL}/api/bookings`,
+  {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -309,9 +312,10 @@ function Booking() {
     setTrips([]);
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/bookings/by-phone/${historyPhone}`
-      );
+    const res = await fetch(
+  `${import.meta.env.VITE_API_URL}/api/bookings/by-phone/${historyPhone}`
+);
+
       const data = await res.json();
       setTrips(data);
     } catch {

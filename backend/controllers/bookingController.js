@@ -88,24 +88,28 @@ const createBooking = async (req, res) => {
       global.io.emit("new-booking", booking);
     }
 
-    res.status(201).json({ message: "Booking created", booking });
+    res.status(201).json({
+      message: "Booking created",
+      booking,
+    });
   } catch (err) {
-    console.error(err);
+    console.error("CREATE BOOKING ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
 /* ===============================
-   GET ALL BOOKINGS
+   GET ALL BOOKINGS (DRIVER)
 ================================ */
 const getBookings = async (req, res) => {
   try {
     const result = await db.query(
       `SELECT * FROM bookings ORDER BY "createdAt" DESC`
     );
+
     res.json(result.rows.map(mapBooking));
   } catch (err) {
-    console.error(err);
+    console.error("GET BOOKINGS ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -114,14 +118,21 @@ const getBookings = async (req, res) => {
    GET BOOKINGS BY PHONE
 ================================ */
 const getBookingsByPhone = async (req, res) => {
+  const { phone } = req.params;
+
+  if (!phone) {
+    return res.status(400).json({ message: "Phone number required" });
+  }
+
   try {
     const result = await db.query(
       `SELECT * FROM bookings WHERE phone = $1 ORDER BY "createdAt" DESC`,
-      [req.params.phone]
+      [phone]
     );
+
     res.json(result.rows.map(mapBooking));
   } catch (err) {
-    console.error(err);
+    console.error("GET BOOKINGS BY PHONE ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -130,16 +141,26 @@ const getBookingsByPhone = async (req, res) => {
    UPDATE BOOKING STATUS
 ================================ */
 const updateBookingStatus = async (req, res) => {
-  const { status } = req.body;
   const { id } = req.params;
+  const { status } = req.body;
+
+  const ALLOWED = ["ACCEPTED", "REJECTED", "COMPLETED"];
+  if (!ALLOWED.includes(status)) {
+    return res.status(400).json({ message: "Invalid status" });
+  }
 
   try {
     const result = await db.query(
-      `UPDATE bookings SET status = $1 WHERE id = $2 RETURNING *`,
+      `
+      UPDATE bookings
+      SET status = $1
+      WHERE id = $2
+      RETURNING *
+      `,
       [status, id]
     );
 
-    if (!result.rows.length) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ message: "Booking not found" });
     }
 
@@ -149,9 +170,12 @@ const updateBookingStatus = async (req, res) => {
       global.io.emit("booking-updated", booking);
     }
 
-    res.json({ message: "Booking updated", booking });
+    res.json({
+      message: "Booking updated",
+      booking,
+    });
   } catch (err) {
-    console.error(err);
+    console.error("UPDATE STATUS ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };

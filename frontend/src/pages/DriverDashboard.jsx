@@ -14,30 +14,40 @@ function DriverDashboard() {
   /* 🔊 SOUND REF */
   const notificationSound = useRef(null);
 
-  /* 🔔 REQUEST PERMISSION */
+  /* 🔔 REQUEST NOTIFICATION PERMISSION */
   useEffect(() => {
     if ("Notification" in window && Notification.permission === "default") {
       Notification.requestPermission();
     }
   }, []);
 
+  /* 📦 LOAD BOOKINGS */
   const loadBookings = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/bookings", {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/bookings`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to load bookings");
 
       const data = await res.json();
-      setBookings(data);
+
+      // ✅ SAFETY: always force array
+      setBookings(Array.isArray(data) ? data : data.bookings || []);
     } catch (err) {
-      console.error("Failed to load bookings", err);
+      console.error("Failed to load bookings:", err);
+      setBookings([]);
     } finally {
       setLoading(false);
     }
   };
 
+  /* 🔌 SOCKET + INITIAL LOAD */
   useEffect(() => {
     loadBookings();
 
@@ -45,22 +55,16 @@ function DriverDashboard() {
       setBookings((prev) => [booking, ...prev]);
       setNotification("🔔 New booking received!");
 
-      /* 🔊 PLAY SOUND */
-      if (notificationSound.current) {
-        notificationSound.current.play().catch(() => {});
-      }
+      /* 🔊 SOUND */
+      notificationSound.current?.play().catch(() => {});
 
-      /* 📱 VIBRATION (MOBILE) */
-      if (navigator.vibrate) {
-        navigator.vibrate([300, 150, 300]);
-      }
+      /* 📱 VIBRATE */
+      navigator.vibrate?.([300, 150, 300]);
 
       /* 🔔 SYSTEM NOTIFICATION */
       if ("Notification" in window && Notification.permission === "granted") {
         new Notification("🚗 New Booking", {
-         
           body: `${booking.fullName} • ${booking.pickupArea}, ${booking.pickupCounty} → ${booking.destinationArea}, ${booking.destinationCounty}`,
-
         });
       }
 
@@ -79,12 +83,13 @@ function DriverDashboard() {
     };
   }, []);
 
+  /* 🔁 UPDATE STATUS */
   const updateStatus = async (id, status) => {
     if (!window.confirm(`Mark booking as ${status}?`)) return;
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/bookings/${id}/status`,
+        `${import.meta.env.VITE_API_URL}/api/bookings/${id}/status`,
         {
           method: "PATCH",
           headers: {
@@ -98,7 +103,7 @@ function DriverDashboard() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message || "Failed");
+        alert(data.message || "Failed to update");
         return;
       }
 
@@ -110,22 +115,24 @@ function DriverDashboard() {
     }
   };
 
+  /* 🚪 LOGOUT */
   const handleLogout = () => {
     logout();
     navigate("/driver/login");
   };
 
-  if (loading) return <p className="dashboard-loading">Loading bookings...</p>;
+  if (loading) {
+    return <p className="dashboard-loading">Loading bookings...</p>;
+  }
 
-  const filteredBookings = bookings.filter((b) => {
-    if (activeTab === "PENDING") return b.status === "PENDING";
-    return b.status !== "PENDING";
-  });
+  /* 🧹 FILTER */
+  const filteredBookings = bookings.filter((b) =>
+    activeTab === "PENDING" ? b.status === "PENDING" : b.status !== "PENDING"
+  );
 
   return (
     <div className="driver-dashboard">
-
-      {/* 🔊 AUDIO ELEMENT */}
+      {/* 🔊 AUDIO */}
       <audio ref={notificationSound} src="/notification.mp3" preload="auto" />
 
       <div className="dashboard-header">
@@ -187,35 +194,40 @@ function DriverDashboard() {
                 </a>
               </div>
 
-             <p><strong>Pickup:</strong> {b.pickupArea}, {b.pickupCounty}</p>
-
-{b.pickupLandmark && (
-  <p><strong>Landmark:</strong> {b.pickupLandmark}</p>
-)}
-
-<p><strong>Destination:</strong> {b.destinationArea}, {b.destinationCounty}</p>
-
-<p><strong>Passengers:</strong> {b.passengers}</p>
-
-<p>
-  <strong>Date:</strong> {b.date} <br />
-  <strong>Pickup Time:</strong> {b.pickupTime}
-</p>
+              <p><strong>Pickup:</strong> {b.pickupArea}, {b.pickupCounty}</p>
+              {b.pickupLandmark && (
+                <p><strong>Landmark:</strong> {b.pickupLandmark}</p>
+              )}
+              <p><strong>Destination:</strong> {b.destinationArea}, {b.destinationCounty}</p>
+              <p><strong>Passengers:</strong> {b.passengers}</p>
+              <p>
+                <strong>Date:</strong> {b.date}<br />
+                <strong>Pickup Time:</strong> {b.pickupTime}
+              </p>
 
               <div className="booking-actions">
                 {b.status === "PENDING" && (
                   <>
-                    <button className="accept-btn" onClick={() => updateStatus(b.id, "ACCEPTED")}>
+                    <button
+                      className="accept-btn"
+                      onClick={() => updateStatus(b.id, "ACCEPTED")}
+                    >
                       Accept
                     </button>
-                    <button className="reject-btn" onClick={() => updateStatus(b.id, "REJECTED")}>
+                    <button
+                      className="reject-btn"
+                      onClick={() => updateStatus(b.id, "REJECTED")}
+                    >
                       Reject
                     </button>
                   </>
                 )}
 
                 {b.status === "ACCEPTED" && (
-                  <button className="complete-btn" onClick={() => updateStatus(b.id, "COMPLETED")}>
+                  <button
+                    className="complete-btn"
+                    onClick={() => updateStatus(b.id, "COMPLETED")}
+                  >
                     Complete
                   </button>
                 )}

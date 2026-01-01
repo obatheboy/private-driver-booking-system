@@ -26,11 +26,14 @@ function DriverLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/driver/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/driver/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await res.json();
 
@@ -39,9 +42,15 @@ function DriverLogin() {
         return;
       }
 
+      if (!data.token) {
+        alert("Invalid login response");
+        return;
+      }
+
       setToken(data.token);
       navigate("/driver", { replace: true });
-    } catch {
+    } catch (err) {
+      console.error("LOGIN ERROR:", err);
       alert("Server error");
     } finally {
       setLoading(false);
